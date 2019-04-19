@@ -16,13 +16,13 @@ ENV HELM_HOME=/helm/.helm
 ENV HELM_DIFF_VERSION=v2.11.0+3
 
 RUN pip install --no-cache awscli && \
+    adduser -h /helm -D helm \
     apk --update --no-cache add bash openssh curl && \
     && curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
     && mv /tmp/download/docker/docker /usr/local/bin/ \
     && rm -rf /tmp/download \
     && apk del curl \
-    && rm -rf /var/cache/apk/*
-    adduser -h /helm -D helm
+    && rm -rf /var/cache/apk/* 
 
 USER helm
 
